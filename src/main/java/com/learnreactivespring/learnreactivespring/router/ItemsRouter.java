@@ -28,4 +28,18 @@ public class ItemsRouter {
                 .andRoute(PUT(ItemConstants.ITEM_FUNCTIONAL_END_POINT_V1 + "/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)), itemsHandler::updateItem);
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> errorRoute(ItemsHandler itemsHandler) {
+        return RouterFunctions
+                .route(GET(ItemConstants.ITEM_FUNCTIONAL_END_POINT_V1.concat("/runtimeException"))
+                        .and(accept(MediaType.APPLICATION_JSON)), itemsHandler::itemsException);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> itemStremR(ItemsHandler itemsHandler) {
+        return RouterFunctions
+                .route(GET(ItemConstants.ITEM_STREAM_FUNCTIONAL_END_POINT_V1)
+                        .and(accept(MediaType.APPLICATION_JSON)), itemsHandler::itemsStream);
+    }
 }
